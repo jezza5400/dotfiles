@@ -13,6 +13,7 @@
     "wireplumber",
     "cpu",
     "custom/battery",
+    "custom/notifications",
   ],
   "custom/arch": {
     "format": "<span font=\"FiraCode Nerd Font\"></span>",
@@ -105,5 +106,11 @@
     "return-type": "json",
     "signal": 7,
     "on-click": "/home/jeremy/.config/waybar/bin/power-profile-cycle.sh",
+  },
+  "custom/notifications": {
+    "exec": "swaync-client -swb",
+    "return-type": "json",
+    "on-click": "swaync-client -t",
+    "format": "󰂚 {}",
   },
 }
