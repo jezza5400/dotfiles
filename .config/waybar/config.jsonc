@@ -111,6 +111,11 @@
     "exec": "swaync-client -swb",
     "return-type": "json",
     "on-click": "swaync-client -t",
-    "format": "󰂚 {}",
-  },
+    "format": "{icon} {text}",
+    "format-icons": {
+      "default": "󰂚",
+      "dnd": "󰂛",
+      "dnd-none": "󰂛",
+    },
+    "on-click-right": "swaync-client -d",
 }
