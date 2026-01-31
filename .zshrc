@@ -54,6 +54,12 @@ export ARCHFLAGS="-arch $(uname -m)"
 # Sets default less options so Git only opens the pager for long outputs
 export LESS=FRX
 
+# Pico SDK
+export PICO_SDK_PATH="$HOME/pico/pico-sdk"
+export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
+# export PICO_EXTRAS_PATH="$HOME/pico/pico-extras"
+# export PICO_PLAYGROUND_PATH="$HOME/pico/pico-playground"
+
 # =============================================================================
 # PATH configuration
 # =============================================================================
@@ -67,6 +73,7 @@ path=(
 	$path
 	$HOME/.dotnet/tools
 	"$PNPM_HOME"
+	$HOME/pico/picotool/build
 )
 
 export PATH
