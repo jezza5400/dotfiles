@@ -21,7 +21,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # =============================================================================
 # Update automatically without asking and show logs. Check once per day
 zstyle ':omz:update' mode auto
-zstyle ':omz:update' verbose yes
+zstyle ':omz:update' verbose default
 zstyle ':omz:update' frequency 1
 
 # =============================================================================
