@@ -1,150 +1,123 @@
-# Zsh Dotfiles Configuration
+# Linux Dotfiles
 
-Dotfiles for a Zsh environment with Oh My Zsh and Powerlevel10k theme for a simple, modern, feature-rich terminal experience.
+Opinionated configuration for a Hyprland-first workspace that keeps Zsh snappy, Powerlevel10k expressive, and Wayland utilities consistent.
 
-## Overview
+## What this repo provides
 
-This repository contains configuration files for Zsh shell with a visually appealing and highly functional setup:
+- One-click shell: [.zshrc](.zshrc) wired up to Oh My Zsh plus autosuggestions and syntax highlighting, with a [.p10k.zsh](.p10k.zsh) prompt that highlights git status, battery, and the current host.
+- Wayland essentials: themed [.config/kitty](.config/kitty) terminal, searchable [.config/rofi](.config/rofi) menus, and composited widgets via [.config/waybar](.config/waybar).
+- Hyprland desktop glue: configuration for Hyprland, hyprpaper, and sway-like helpers living under [.config/hypr](.config/hypr) and [.config/swaync](.config/swaync).
 
-- **Oh My Zsh**: A delightful community-driven framework for managing Zsh configuration
-- **Powerlevel10k Theme**: A fast and flexible Zsh theme with beautiful prompt styling
-- **Essential Plugins**: Git integration, syntax highlighting, and autosuggestions
+## Arch Linux quick start
 
-## Installation Guide
-
-### Step 1: Install Zsh & git
-
-First, install Zsh and git if you don't have them already:
+### 1. Update the base system
 
 ```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install zsh git -y
-
-# Arch Linux
-sudo pacman -S zsh git
+sudo pacman -Syyu
 ```
 
-Verify installation:
+### 2. Install the upstream dependencies
 
 ```bash
-zsh --version
+sudo pacman -S --needed \
+ zsh git curl unzip \
+ hyprland hyprpaper waybar kitty rofi swaync \
+ wayland-protocols wlroots xorg-xwayland \
+ xdg-desktop-portal-hyprland libinput grim slurp wl-clipboard
 ```
 
-### Step 2: Install Oh My Zsh
-
-Install Oh My Zsh framework:
+#### Using yay to install extras
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+yay -Syyu
 ```
 
-This will:
-
-- Install Oh My Zsh to `~/.oh-my-zsh`
-- Back up your existing `~/.zshrc` file
-- Create a new default `~/.zshrc`
-- Set Zsh as your default shell (will prompt for password)
-
-### Step 3: Install Powerlevel10k Theme
-
-Clone Powerlevel10k into your Oh My Zsh themes directory:
+If you already have `yay`, you can install SwayNC and the other helpers directly with it so the packages stay aligned with AUR releases.
 
 ```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+yay -S --needed \
+ swaync hyprshutdown-git
 ```
 
-### Step 4: Install Zsh Plugins
+If you do not yet have an AUR helper, install one (such as `yay`) so you can keep `swaync` and Nerd Fonts up to date. The [.config/swaync](.config/swaync) scripts expect a working `swaync` binary, so install it via `yay -S swayncrc` or by building from <https://github.com/ermeschmidt/swaync>.
 
-Install the required plugins for syntax highlighting and autosuggestions:
-
-**Zsh Syntax Highlighting:**
+### 3. Install the recommended fonts
 
 ```bash
-git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-```
-
-**Zsh Autosuggestions:**
-
-```bash
-git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-```
-
-### Step 5: Install Recommended Fonts
-
-Download and install the `Fira Code Nerd Font` manually:
-
-```bash
-# Create fonts directory if it doesn't exist
 mkdir -p ~/.local/share/fonts/FiraCodeNerdFont
-# Or for system-wide
-mkdir -p /usr/share/fonts/FiraCodeNerdFont
-
-# Change to fonts directory
-cd ~/.local/share/fonts
-# Or for system-wide
-cd /usr/share/fonts
-
-# Download the fonts
-wget -P ~/.local/share/fonts/FiraCodeNerdFont https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
-# Or for system-wide
-wget -P /usr/share/fonts/FiraCodeNerdFont https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
-
-# Extract the fonts
+wget -P ~/.local/share/fonts/FiraCodeNerdFont \
+ https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
 unzip ~/.local/share/fonts/FiraCodeNerdFont/FiraCode.zip -d ~/.local/share/fonts/FiraCodeNerdFont/
-# Or for system-wide
-unzip /usr/share/fonts/FiraCodeNerdFont/FiraCode.zip -d /usr/share/fonts/FiraCodeNerdFont/
-
-# Refresh font cache
 fc-cache -fv
 ```
 
-### Step 6: Clone and Install This Dotfiles Configuration
-
-Now clone this repository and apply the configuration:
+Alternatively, keep things simple with your AUR helper:
 
 ```bash
-# Clone the repository
-git clone --depth 1 https://github.com/jezza5400/dotfiles.git
-cd ~/dotfiles
+yay -S nerd-fonts-fira-code
+```
 
-# Back up your current configurations (if they exist)
+### 4. Install Oh My Zsh + Powerlevel10k
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+ ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+### 5. Clone this repository and deploy the files
+
+```bash
+git clone --depth 1 https://github.com/jezza5400/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+```
+
+Back up any existing shell configuration before copying the new ones:
+
+```bash
 mv ~/.zshrc ~/.zshrc.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true
 mv ~/.p10k.zsh ~/.p10k.zsh.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true
+```
 
-# Copy the dotfiles to your home directory
-cp .zshrc ~/.zshrc
-cp .p10k.zsh ~/.p10k.zsh
+Copy the repository config into place:
+
+```bash
+cp [.zshrc](.zshrc) ~/.zshrc
+cp [.p10k.zsh](.p10k.zsh) ~/.p10k.zsh
 cp -r .config/* ~/.config/
-
-# Make sure the files have proper permissions
 chmod 644 ~/.zshrc ~/.p10k.zsh
 ```
 
-### Step 7: Set Zsh as Your Default Shell
+### 6. Final polish
 
-If Zsh isn't already your default shell, set it:
+- Set Zsh as your default shell:
 
-```bash
-chsh -s $(command -v zsh)
-```
+ ```bash
+ chsh -s $(command -v zsh)
+ ```
 
-You'll be prompted to enter your password.
+- Reload Hyprland when you make compositor changes:
 
-### Step 8: Apply the Configuration
+ ```bash
+ hyprctl reload
+ ```
 
-Restart your terminal or reload the configuration:
+- Restart your terminal or run `exec zsh` so Oh My Zsh picks up the fresh prompt.
 
-```bash
-# Close and reopen your terminal
-# OR
-# Source the configuration
-exec zsh
-```
+## Configuration highlights
+
+- Hyprland lives under [.config/hypr](.config/hypr) and references hyprpaper, wallpaper scripts, and keybindings tailored to multiple monitors.
+- Kitty themes and keybindings are organized in [.config/kitty](.config/kitty) to match the Powerlevel10k palette.
+- Rofi’s search and application menus can be tweaked inside [.config/rofi](.config/rofi).
+- Waybar widgets (battery, backlight, layout indicators) are defined in [.config/waybar](.config/waybar).
+- SwayNC helpers under [.config/swaync](.config/swaync) provide notifications and system controls in the Hyprland session.
 
 ## Contributing
 
-Feel free to submit issues or pull requests if you have suggestions for improvements!
+Use issues or pull requests for improvements to the prompt, Hyprland layout, or scripts. Keep your patches small and document any extra packages you introduce.
 
 ## License
 
-These configuration files are provided as-is for personal use. The underlying software (Oh My Zsh, Powerlevel10k, etc.) are covered by their respective licenses.
+These configuration files are provided as-is. Underlying software (Oh My Zsh, Powerlevel10k, Hyprland, etc.) follow their own licenses.
