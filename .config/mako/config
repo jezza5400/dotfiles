@@ -1,9 +1,0 @@
-font=FiraCode Nerd Font 10
-sort=-time
-layer=overlay
-background-color=#282B31FF
-border-radius=10
-icons=1
-max-icon-size=48
-default-timeout=10000
-ignore-timeout=1
