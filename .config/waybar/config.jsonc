@@ -113,9 +113,11 @@
     "on-click": "swaync-client -t",
     "format": "{icon} {text}",
     "format-icons": {
-      "default": "󰂚",
+      "none": "󰂚",
+      "notification": "󰂚",
       "dnd": "󰂛",
       "dnd-none": "󰂛",
+      "dnd-notification": "󰂛",
     },
     "on-click-right": "swaync-client -d",
 }
