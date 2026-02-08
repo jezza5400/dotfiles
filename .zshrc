@@ -73,7 +73,6 @@ path=(
 	$path
 	$HOME/.dotnet/tools
 	"$PNPM_HOME"
-	$HOME/pico/picotool/build
 )
 
 export PATH
