@@ -37,6 +37,11 @@ source $ZSH/oh-my-zsh.sh
 # =============================================================================
 # User Configuration
 # =============================================================================
+# run-help setup
+autoload -Uz run-help
+# Make "help <cmd>" work
+alias help=run-help
+
 # Language environment
 export LANG=en_AU.UTF-8
 
