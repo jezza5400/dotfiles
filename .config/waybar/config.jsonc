@@ -101,6 +101,7 @@
     "on-click": "kitty -o confirm_os_window_close=0 -e zsh -ic \"exec btop\"",
   },
   "custom/battery": {
+    "exec-once": "/home/jeremy/.config/waybar/bin/battery-powerprofile.sh",
     "exec": "/home/jeremy/.config/waybar/bin/battery-powerprofile.sh",
     "interval": 10,
     "return-type": "json",
