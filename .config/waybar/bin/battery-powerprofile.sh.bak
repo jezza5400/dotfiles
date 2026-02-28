@@ -1,0 +1,116 @@
+#!/bin/sh
+# Outputs JSON for Waybar showing plug (if any), battery icon by power profile, and percentage
+
+# Find battery sysfs dir
+bdir=""
+for d in /sys/class/power_supply/*; do
+  [ -f "$d/type" ] || continue
+  case "$(cat "$d/type" 2>/dev/null)" in
+    Battery|battery)
+      bdir="$d"
+      break
+      ;;
+  esac
+done
+
+# fallback
+[ -z "$bdir" ] && bdir=/sys/class/power_supply/BAT0
+
+capacity="?"
+status="Unknown"
+
+if [ -d "$bdir" ]; then
+  [ -r "$bdir/capacity" ] && capacity=$(<"$bdir/capacity")
+  [ -r "$bdir/status" ] && status=$(<"$bdir/status")
+fi
+
+# calculate time remaining (hours/mins) when available
+time_remaining=""
+
+if [ -r "$bdir/charge_now" ] && [ -r "$bdir/current_now" ]; then
+  now=$(cat "$bdir/charge_now")
+  rate=$(cat "$bdir/current_now")
+  full=$(cat "$bdir/charge_full")
+
+  if [ "$rate" -gt 0 ]; then
+    if [ "$status" = "Discharging" ]; then
+      seconds=$(( now * 3600 / rate ))
+    else
+      seconds=$(( (full - now) * 3600 / rate ))
+    fi
+
+    hours=$(( seconds / 3600 ))
+    mins=$(( (seconds % 3600) / 60 ))
+    time_remaining="${hours}h ${mins}m"
+  fi
+fi
+
+# Battery warning thresholds
+warn_levels="20 15 10 5 2 1"
+
+state_dir="${XDG_RUNTIME_DIR:-/tmp}/battery-warn"
+mkdir -p "$state_dir"
+state_file="$state_dir/last"
+
+last=""
+[ -f "$state_file" ] && last=$(cat "$state_file")
+
+for lvl in $warn_levels; do
+  if [ "$capacity" -eq "$lvl" ] && [ "$last" != "$lvl" ]; then
+    notify-send -u critical "Battery low" "Battery at ${capacity}%"
+    printf "%s" "$lvl" > "$state_file"
+    break
+  fi
+done
+
+# plugged if not discharging
+plugged=1
+[ "$status" = "Discharging" ] || [ "$status" = "discharging" ] && plugged=0
+
+# get current power profile
+profiles=$(powerprofilesctl get 2>/dev/null)
+profile=$(printf "%s" "$profiles" | awk '/\*/{print $1; exit}')
+[ -z "$profile" ] && profile=$(printf "%s" "$profiles" | awk 'NR==1{print $1}')
+[ -z "$profile" ] && profile=balanced
+
+# map icons (FiraCode Nerd Font glyphs provided)
+icon="󰁹" # balanced default
+case "$profile" in
+  performance)
+    icon="󰂄"
+    ;;
+  "power-saver"|powersave*|power_saver)
+    icon="󱈑"
+    ;;
+  balanced)
+    icon="󰁹"
+    ;;
+  *)
+    icon="󰁹"
+    ;;
+esac
+
+# if plugged, prefix plug icon
+plug_icon=""
+if [ "$plugged" -eq 1 ]; then
+  plug_icon=" "
+fi
+
+# Output JSON
+text="${plug_icon}${icon} ${capacity}%"
+tooltip="Profile: ${profile}
+Status: ${status}"
+[ -n "$time_remaining" ] && tooltip="$tooltip
+Time: $time_remaining"
+
+json_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/\\/\\\\/g' \
+    -e 's/"/\\"/g' \
+    -e ':a;N;$!ba;s/\n/\\n/g'
+}
+
+printf '{"text":"%s","alt":"%s","tooltip":"%s"}\n' \
+  "$(json_escape "$text")" \
+  "$(json_escape "$icon")" \
+  "$(json_escape "$tooltip")"
