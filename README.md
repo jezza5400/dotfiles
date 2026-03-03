@@ -22,7 +22,7 @@ sudo pacman -Syyu
 sudo pacman -S --needed \
  zsh git curl unzip \
  hyprland hyprpaper waybar kitty rofi swaync \
- wayland-protocols wlroots xorg-xwayland \
+ wayland-protocols xorg-xwayland \
  xdg-desktop-portal-hyprland libinput grim slurp wl-clipboard
 ```
 
