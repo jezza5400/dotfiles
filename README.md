@@ -19,11 +19,7 @@ sudo pacman -Syyu
 ### 2. Install the upstream dependencies
 
 ```bash
-sudo pacman -S --needed \
- zsh git curl unzip \
- hyprland hyprpaper waybar kitty rofi swaync \
- wayland-protocols xorg-xwayland \
- xdg-desktop-portal-hyprland libinput grim slurp wl-clipboard
+sudo pacman -S --needed zsh git curl unzip hyprland hyprpaper waybar kitty rofi swaync wayland-protocols xorg-xwayland xdg-desktop-portal-hyprland libinput grim slurp wl-clipboard
 ```
 
 #### Using yay to install extras
@@ -35,8 +31,7 @@ yay -Syyu
 If you already have `yay`, you can install SwayNC and the other helpers directly with it so the packages stay aligned with AUR releases.
 
 ```bash
-yay -S --needed \
- swaync hyprshutdown-git
+yay -S --needed swaync hyprshutdown-git
 ```
 
 If you do not yet have an AUR helper, install one (such as `yay`) so you can keep `swaync` and Nerd Fonts up to date. The [.config/swaync](.config/swaync) scripts expect a working `swaync` binary, so install it via `yay -S swayncrc` or by building from <https://github.com/ermeschmidt/swaync>.
@@ -45,8 +40,7 @@ If you do not yet have an AUR helper, install one (such as `yay`) so you can kee
 
 ```bash
 mkdir -p ~/.local/share/fonts/FiraCodeNerdFont
-wget -P ~/.local/share/fonts/FiraCodeNerdFont \
- https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
+wget -P ~/.local/share/fonts/FiraCodeNerdFont https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
 unzip ~/.local/share/fonts/FiraCodeNerdFont/FiraCode.zip -d ~/.local/share/fonts/FiraCodeNerdFont/
 fc-cache -fv
 ```
@@ -63,8 +57,7 @@ yay -S nerd-fonts-fira-code
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
- ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
 ### 5. Clone this repository and deploy the files
