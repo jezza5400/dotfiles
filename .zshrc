@@ -37,10 +37,12 @@ source $ZSH/oh-my-zsh.sh
 # =============================================================================
 # User Configuration
 # =============================================================================
-# run-help setup
+# Autoloads
 autoload -Uz run-help
-# Make "help <cmd>" work
+
+# Aliases
 alias help=run-help
+alias gdd='git -c core.pager="delta --side-by-side" diff'
 
 # Language environment
 export LANG=en_AU.UTF-8
@@ -59,7 +61,7 @@ export ARCHFLAGS="-arch $(uname -m)"
 # Sets default less options so Git only opens the pager for long outputs
 export LESS=FRX
 
-# Pico SDK
+# Enviroment variables
 export PICO_SDK_PATH="$HOME/pico/pico-sdk"
 export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
 # export PICO_EXTRAS_PATH="$HOME/pico/pico-extras"
