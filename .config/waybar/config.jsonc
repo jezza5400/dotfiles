@@ -79,7 +79,7 @@
     "format-connected": "󰂱",
     "format-no-controller": " ",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "kitty -o confirm_os_window_close=0 -e zsh -ic \"exec bluetuith\"",
+    "on-click": "blueman-manager",
   },
   "network": {
     "format-icons": [
