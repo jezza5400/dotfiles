@@ -6,21 +6,10 @@
 !.zshrc
 !.p10k.zsh
 
-# Unignore the .config directory
-!.config/
-
 # Unignore files in the .config directory
 !.config/rofimoji.rc
 
-## Unignore specific folders
-!.config/hypr/
-!.config/kitty/
-!.config/nvim/
-!.config/rofi/
-!.config/swaync/
-!.config/waybar/
-
-### Unignore files inside those folders
+# Unignore files inside those folders
 !.config/hypr/*
 !.config/kitty/*
 !.config/nvim/*
