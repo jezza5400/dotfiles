@@ -1,0 +1,30 @@
+* {
+  background-color: #0f1115;
+  color: #cbd5e1;
+  font-family: 'FiraCode Nerd Font';
+  font-size: 15px;
+}
+
+#custom-arch {
+  padding: 0 10px;
+}
+
+#workspaces button {
+  all: initial;
+  padding: 0 8px;
+}
+
+#workspaces button.empty {
+  opacity: 0.5;
+}
+
+#custom-expand-icon,
+#tray,
+#bluetooth,
+#network,
+#wireplumber,
+#cpu,
+#custom-battery,
+#custom-notifications {
+  padding-right: 10px;
+}
