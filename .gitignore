@@ -10,9 +10,9 @@
 !.config/rofimoji.rc
 
 # Unignore files inside those folders
-!.config/hypr/*
-!.config/kitty/*
-!.config/nvim/*
-!.config/rofi/*
-!.config/swaync/*
-!.config/waybar/*
+!.config/hypr/**
+!.config/kitty/**
+!.config/nvim/**
+!.config/rofi/**
+!.config/swaync/**
+!.config/waybar/**
