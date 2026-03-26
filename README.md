@@ -13,7 +13,7 @@ Opinionated configuration for a Hyprland-first workspace that keeps Zsh snappy, 
 ### 1. Update the base system
 
 ```bash
-sudo pacman -Syyu
+sudo pacman -Syu
 ```
 
 ### 2. Install the upstream dependencies
@@ -25,7 +25,7 @@ sudo pacman -S --needed zsh git curl unzip hyprland hyprpaper waybar kitty rofi 
 #### Using yay to install extras
 
 ```bash
-yay -Syyu
+yay -Syu
 ```
 
 If you already have `yay`, you can install SwayNC and the other helpers directly with it so the packages stay aligned with AUR releases.
@@ -48,7 +48,7 @@ fc-cache -fv
 Alternatively, keep things simple with your AUR helper:
 
 ```bash
-yay -S nerd-fonts-fira-code
+yay -S --needed nerd-fonts-fira-code
 ```
 
 ### 4. Install Oh My Zsh + Powerlevel10k
