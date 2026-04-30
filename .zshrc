@@ -74,15 +74,17 @@ export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
 path=(
+	"$PNPM_HOME"
 	$HOME/bin
 	$HOME/.local/bin
+	$HOME/.dotnet/tools
 	/usr/local/bin
 	$path
-	$HOME/.dotnet/tools
-	"$PNPM_HOME"
 )
 
-export PATH
+# -U dedupe, -x export
+typeset -Ux path
+typeset -Ux fpath
 
 # =============================================================================
 # Powerlevel10k Theme Customization
