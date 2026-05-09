@@ -74,6 +74,7 @@ export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
 path=(
+	"$PNPM_HOME/bin"
 	"$PNPM_HOME"
 	$HOME/bin
 	$HOME/.local/bin
