@@ -42,6 +42,7 @@ autoload -Uz run-help
 
 # Aliases
 alias help=run-help
+alias update='yay -Syu --noconfirm && sudo rm -rf "/var/cache/pacman/pkg/download-*" && yay -Yc --noconfirm && yay -Sc --noconfirm'
 alias gdd='git -c core.pager="delta --side-by-side" diff'
 
 # Language environment
