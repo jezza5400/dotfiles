@@ -72,8 +72,14 @@ state_file="$state_dir/last"
 last=""
 [ -f "$state_file" ] && last=$(cat "$state_file")
 
+# Only warn on battery power, and reset once the battery is charging or back above the warning band.
+if [ "$status" != "Discharging" ] || [ "$capacity" -gt 20 ]; then
+  : > "$state_file"
+  last=""
+fi
+
 for lvl in $warn_levels; do
-  if [ "$capacity" -eq "$lvl" ] && [ "$last" != "$lvl" ]; then
+  if [ "$status" = "Discharging" ] && [ "$capacity" -eq "$lvl" ] && [ "$last" != "$lvl" ]; then
     notify-send -u critical "Battery low" "Battery at ${capacity}%"
     printf "%s" "$lvl" > "$state_file"
     break
