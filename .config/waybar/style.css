@@ -5,13 +5,9 @@
   font-size: 15px;
 }
 
-#custom-arch {
-  padding: 0 10px;
-}
-
 #workspaces button {
   all: initial;
-  padding: 0 8px;
+  padding: 0 7px;
 }
 
 #workspaces button.empty {

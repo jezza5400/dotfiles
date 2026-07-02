@@ -1,6 +1,6 @@
 /*****----- Configuration -----*****/
 configuration {
-    modi: "drun,filebrowser,calc,window,emoji:rofimoji,clipboard:~/.config/rofi/cliphist.sh";
+    modi: "drun,filebrowser,calc,window,emoji:rofimoji,clipboard:~/.config/rofi/cliphist.bash";
     show-icons:                 true;
     display-drun:               "";
     display-filebrowser:        "";
