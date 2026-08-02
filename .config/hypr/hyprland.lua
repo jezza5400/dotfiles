@@ -48,6 +48,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 	hl.exec_cmd("gnome-keyring-daemon --start --components=pkcs11,secrets,ssh")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 24")
+	hl.exec_cmd("fcitx5 -d")
 end)
 
 
@@ -63,6 +64,8 @@ hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XDG_DESKTOP_PORTAL_DIR", "/usr/share/xdg-desktop-portal/portals")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("XMODIFIERS", "@im=fcitx")
 
 
 -- ### CONFIG ###
@@ -245,6 +248,8 @@ hl.config({
 		kb_rules = "",
 		follow_mouse = 1,
 		sensitivity = 0,
+		accel_profile = "adaptive",
+		force_no_accel = false,
 		touchpad = {
 			natural_scroll = true,
 			scroll_factor = 0.5,
