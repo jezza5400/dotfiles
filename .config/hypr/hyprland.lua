@@ -49,6 +49,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=pkcs11,secrets,ssh")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 24")
 	hl.exec_cmd("fcitx5 -d")
+	hl.exec_cmd("nm-applet --indicator")
 end)
 
 
@@ -80,7 +81,7 @@ hl.config({
 		gaps_out = 4,
 		border_size = 2,
 		resize_on_border = false,
-		allow_tearing = false,
+		allow_tearing = true,
 		layout = "dwindle",
 		col = {
 			active_border = {
@@ -97,7 +98,7 @@ hl.config({
 		active_opacity = 1.0,
 		inactive_opacity = 1.0,
 		shadow = {
-			enabled = true,
+			enabled = false,
 			range = 4,
 			render_power = 3,
 			color = "rgba(1a1a1aee)",

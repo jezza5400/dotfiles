@@ -2,6 +2,7 @@
   "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
+  "passthrough": false,
   "spacing": 0,
   "height": 26,
   "modules-left": [
@@ -14,13 +15,16 @@
     "group/tray-expander",
     "bluetooth",
     "network",
-    "wireplumber",
+    "pulseaudio",
     "cpu",
     "custom/battery",
-    "custom/notifications",
+    "custom/notifications"
   ],
   "hyprland/workspaces": {
     "format": "{icon}",
+    "cursor": true,
+    "tooltip": false,
+    "all-outputs": true,
     "format-icons": {
       "default": "",
       "1": "1",
@@ -33,39 +37,39 @@
       "8": "8",
       "9": "9",
       "10": "0",
-      "active": "󱓻",
+      "active": "󱓻"
     },
     "persistent-workspaces": {
       "1": [],
       "2": [],
       "3": [],
       "4": [],
-      "5": [],
-    },
+      "5": []
+    }
   },
   "custom/clock": {
     "exec": "date '+%A %-d/%-m/%-y %-I:%M %p'",
     "interval": 60,
-    "tooltip": false,
+    "tooltip": false
   },
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 600,
-      "children-class": "tray-group-item",
+      "children-class": "tray-group-item"
     },
     "modules": [
       "custom/expand-icon",
-      "tray",
-    ],
+      "tray"
+    ]
   },
   "custom/expand-icon": {
     "format": "",
-    "tooltip": false,
+    "tooltip": false
   },
   "tray": {
     "icon-size": 12,
-    "spacing": 17,
+    "spacing": 17
   },
   "bluetooth": {
     "format": "",
@@ -73,7 +77,7 @@
     "format-connected": "󰂱",
     "format-no-controller": " ",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "blueman-manager",
+    "on-click": "blueman-manager"
   },
   "network": {
     "format-icons": [
@@ -91,33 +95,32 @@
     "tooltip-format-ethernet": "IP: {ipaddr}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
-    "on-click": "kitty -o confirm_os_window_close=0 nmtui",
+    "on-click": "kitty -o confirm_os_window_close=0 nmtui"
   },
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "",
+  "pulseaudio": {
+    "format": "{icon} {volume}% ",
+    "format-muted": " ",
     "format-icons": [
-      "",
-      "",
-      ""
+      " ",
+      " ",
+      " "
     ],
     "tooltip": false,
     "scroll-step": 2,
-    "only-physical": true,
     "on-click": "pavucontrol",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   },
   "cpu": {
     "interval": 5,
     "format": "󰍛 {usage}%",
-    "on-click": "kitty -o confirm_os_window_close=0 btop",
+    "on-click": "kitty -o confirm_os_window_close=0 btop"
   },
   "custom/battery": {
     "exec": "/home/jeremy/.config/waybar/bin/battery-powerprofile.sh",
     "interval": 10,
     "return-type": "json",
     "signal": 7,
-    "on-click": "/home/jeremy/.config/waybar/bin/power-profile-cycle.sh",
+    "on-click": "/home/jeremy/.config/waybar/bin/power-profile-cycle.sh"
   },
   "custom/notifications": {
     "exec": "swaync-client -swb",
@@ -129,8 +132,8 @@
       "notification": "󰂚",
       "dnd": "󰂛",
       "dnd-none": "󰂛",
-      "dnd-notification": "󰂛",
+      "dnd-notification": "󰂛"
     },
-    "on-click-right": "swaync-client -d",
-  },
+    "on-click-right": "swaync-client -d"
+  }
 }

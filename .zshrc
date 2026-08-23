@@ -46,15 +46,13 @@ else
 	export VISUAL='code -w'
 fi
 
-# Less defaults
 export LESS=FRX
-
-# Environment variables
 export PICO_SDK_PATH="$HOME/pico/pico-sdk"
 export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
 # export PICO_EXTRAS_PATH="$HOME/pico/pico-extras"
 # export PICO_PLAYGROUND_PATH="$HOME/pico/pico-playground"
-
+export CC=clang
+export CXX=clang++
 
 # --- PATH configuration ---
 export PNPM_HOME="$HOME/.local/share/pnpm"
