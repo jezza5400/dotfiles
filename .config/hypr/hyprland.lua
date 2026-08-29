@@ -1,7 +1,6 @@
 local var_mainMod = "SUPER"
 local var_terminal = "kitty"
 
-
 -- ### MONITORS ###
 
 hl.monitor({
@@ -35,7 +34,6 @@ hl.monitor({
 	scale = "auto",
 })
 
-
 -- ### AUTOSTART ###
 
 hl.on("hyprland.start", function()
@@ -50,14 +48,15 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 24")
 	hl.exec_cmd("fcitx5 -d")
 	hl.exec_cmd("nm-applet --indicator")
+	hl.exec_cmd("sh -c '(systemctl --user is-active --quiet dbus.service || systemctl --user start dbus.service) && hyprlock'")
 end)
-
 
 -- ### ENVIRONMENT VARIABLES ###
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("HYPRSHOT_DIR", "/home/jeremy/Pictures/Screenshots")
+local home_dir = os.getenv("HOME") or ("/home/" .. os.getenv("USER"))
+hl.env("HYPRSHOT_DIR", home_dir .. "/Pictures/Screenshots")
 hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
 hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
@@ -67,7 +66,6 @@ hl.env("XDG_DESKTOP_PORTAL_DIR", "/usr/share/xdg-desktop-portal/portals")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
-
 
 -- ### CONFIG ###
 
@@ -113,11 +111,11 @@ hl.config({
 	},
 })
 
-hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
-hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
-hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
-hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5}, {0.75, 1} } })
-hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
 
 hl.animation({
 	leaf = "global",
@@ -268,7 +266,6 @@ hl.gesture({
 	action = "workspace",
 })
 
-
 -- ### KEYBINDINGS ###
 
 hl.bind(var_mainMod .. " + Q", hl.dsp.exec_cmd(var_terminal))
@@ -279,7 +276,10 @@ hl.bind(var_mainMod .. " + V", hl.dsp.exec_cmd("rofi -show clipboard"))
 hl.bind(var_mainMod .. " + K", hl.dsp.exec_cmd("~/.config/rofi/bin/powermenu.bash"))
 hl.bind(var_mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/rofi/bin/hyprshot.sh"))
 hl.bind(var_mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(var_mainMod .. " + escape", hl.dsp.exec_cmd("hyprshutdown -t 'Exiting Hyprland...' || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(
+	var_mainMod .. " + escape",
+	hl.dsp.exec_cmd("hyprshutdown -t 'Exiting Hyprland...' || hyprctl dispatch 'hl.dsp.exit()'")
+)
 hl.bind(var_mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(var_mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
 hl.bind(var_mainMod .. " + E", hl.dsp.exec_cmd("nautilus --new-window"))
@@ -350,15 +350,15 @@ hl.bind(var_mainMod .. " + mouse:273", hl.dsp.window.resize(), {
 })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"), {
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"), {
 	repeating = true,
 	locked = true,
 })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"), {
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
 	repeating = true,
 	locked = true,
 })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle"), {
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
 	repeating = true,
 	locked = true,
 })
@@ -366,14 +366,26 @@ hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURC
 	repeating = true,
 	locked = true,
 })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 set 5%+ && notify-send --icon=display-brightness-high-symbolic --hint=int:value:$(brightnessctl -m | cut -d',' -f4 | tr -d '%') --hint=boolean:transient:true --expire-time=800 \"Brightness: $(brightnessctl -m | cut -d',' -f4)\""), {
-	repeating = true,
-	locked = true,
-})
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 set 5%- && notify-send --icon=display-brightness-low-symbolic --hint=int:value:$(brightnessctl -m | cut -d',' -f4 | tr -d '%') --hint=boolean:transient:true --expire-time=800 \"Brightness: $(brightnessctl -m | cut -d',' -f4)\""), {
-	repeating = true,
-	locked = true,
-})
+hl.bind(
+	"XF86MonBrightnessUp",
+	hl.dsp.exec_cmd(
+		"brightnessctl -e4 set 5%+ && notify-send --icon=display-brightness-high-symbolic --hint=int:value:$(brightnessctl -m | cut -d',' -f4 | tr -d '%') --hint=boolean:transient:true --expire-time=500 \"Brightness: $(brightnessctl -m | cut -d',' -f4)\""
+	),
+	{
+		repeating = true,
+		locked = true,
+	}
+)
+hl.bind(
+	"XF86MonBrightnessDown",
+	hl.dsp.exec_cmd(
+		"brightnessctl -e4 set 5%- && notify-send --icon=display-brightness-low-symbolic --hint=int:value:$(brightnessctl -m | cut -d',' -f4 | tr -d '%') --hint=boolean:transient:true --expire-time=500 \"Brightness: $(brightnessctl -m | cut -d',' -f4)\""
+	),
+	{
+		repeating = true,
+		locked = true,
+	}
+)
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), {
@@ -388,7 +400,6 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), {
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), {
 	locked = true,
 })
-
 
 -- ### WINDOWS AND WORKSPACES ###
 
