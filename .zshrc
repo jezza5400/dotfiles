@@ -47,12 +47,18 @@ else
 fi
 
 export LESS=FRX
-export PICO_SDK_PATH="$HOME/pico/pico-sdk"
-export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
+# export PICO_SDK_PATH="$HOME/pico/pico-sdk"
+# export PICO_EXAMPLES_PATH="$HOME/pico/pico-examples"
 # export PICO_EXTRAS_PATH="$HOME/pico/pico-extras"
 # export PICO_PLAYGROUND_PATH="$HOME/pico/pico-playground"
 export CC=clang
 export CXX=clang++
+
+
+# --- Enable tio (serial) bash autocompletion ---
+autoload -U bashcompinit && bashcompinit
+source /usr/share/bash-completion/completions/tio
+
 
 # --- PATH configuration ---
 export PNPM_HOME="$HOME/.local/share/pnpm"

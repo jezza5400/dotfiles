@@ -286,6 +286,7 @@ hl.bind(var_mainMod .. " + E", hl.dsp.exec_cmd("nautilus --new-window"))
 hl.bind(var_mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(var_mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(var_mainMod .. " + J", hl.dsp.layout("togglesplit"))
+hl.bind(var_mainMod .. " + Z", hl.dsp.exec_cmd("pavucontrol"))
 
 -- Resize current window with mainMod + CTRL + Arrow Keys
 hl.bind(var_mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), {
