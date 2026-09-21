@@ -282,7 +282,7 @@ hl.bind(
 )
 hl.bind(var_mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(var_mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
-hl.bind(var_mainMod .. " + E", hl.dsp.exec_cmd("nautilus --new-window"))
+hl.bind(var_mainMod .. " + E", hl.dsp.exec_cmd("dolphin --new-window"))
 hl.bind(var_mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(var_mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(var_mainMod .. " + J", hl.dsp.layout("togglesplit"))

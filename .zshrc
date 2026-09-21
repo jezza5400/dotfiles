@@ -40,10 +40,13 @@ export LANG=en_AU.UTF-8
 
 # Preferred editor for local and remote sessions
 export EDITOR='micro'
+
 if [[ -n $SSH_CONNECTION ]]; then
 	export VISUAL='micro'
-else
+elif [[ -n "$WAYLAND_DISPLAY$DISPLAY" ]] && command -v code &>/dev/null; then
 	export VISUAL='code -w'
+else
+	export VISUAL='micro'
 fi
 
 export LESS=FRX
@@ -73,8 +76,7 @@ path=(
 	$path
 )
 
-typeset -Ux path
-typeset -Ux fpath
+typeset -U path fpath
 
 
 # --- Powerlevel10k Prompt Theme ---
