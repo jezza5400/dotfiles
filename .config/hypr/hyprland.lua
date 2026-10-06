@@ -28,6 +28,12 @@ hl.monitor({
 	scale = 1,
 })
 hl.monitor({
+	output = "desc:HP Inc. HP P34hc G4 CNC4100D51",
+	mode = "3440x1440@60",
+	position = "-760x-1440",
+	scale = 1,
+})
+hl.monitor({
 	output = "",
 	mode = "preferred",
 	position = "auto",
@@ -55,17 +61,29 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
-local home_dir = os.getenv("HOME") or ("/home/" .. os.getenv("USER"))
-hl.env("HYPRSHOT_DIR", home_dir .. "/Pictures/Screenshots")
 hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
 hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
+
+local home_dir = os.getenv("HOME") or ("/home/" .. os.getenv("USER"))
+hl.env("HYPRSHOT_DIR", home_dir .. "/Pictures/Screenshots")
+
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
-hl.env("XDG_DESKTOP_PORTAL_DIR", "/usr/share/xdg-desktop-portal/portals")
+-- hl.env("XDG_DESKTOP_PORTAL_DIR", "/usr/share/xdg-desktop-portal/portals")
+
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+-- hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
+hl.env("GDK_BACKEND", "wayland,x11,*")
+
 hl.env("QT_IM_MODULE", "fcitx")
+-- hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
+hl.env("SDL_IM_MODULE", "fcitx")
+
+hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
+hl.env("MOZ_ENABLE_WAYLAND", "1")
 
 -- ### CONFIG ###
 
@@ -246,8 +264,8 @@ hl.config({
 		kb_options = "compose:ralt",
 		kb_rules = "",
 		follow_mouse = 1,
-		sensitivity = 0,
-		accel_profile = "adaptive",
+		sensitivity = 0.2,
+		accel_profile = "flat",
 		force_no_accel = false,
 		touchpad = {
 			natural_scroll = true,

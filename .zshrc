@@ -33,7 +33,7 @@ autoload -Uz run-help
 
 alias help=run-help
 alias clear='clear -T xterm-256color'
-alias gdd='git -c core.pager="delta --side-by-side" diff'
+alias gsu='git submodule update --init --recursive'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 export LANG=en_AU.UTF-8
