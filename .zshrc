@@ -35,6 +35,8 @@ alias help=run-help
 alias clear='clear -T xterm-256color'
 alias gsu='git submodule update --init --recursive'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias ffprobe='ffprobe -hide_banner'
+alias ffmpeg='ffmpeg -hide_banner'
 
 export LANG=en_AU.UTF-8
 

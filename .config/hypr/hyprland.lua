@@ -294,10 +294,7 @@ hl.bind(var_mainMod .. " + V", hl.dsp.exec_cmd("rofi -show clipboard"))
 hl.bind(var_mainMod .. " + K", hl.dsp.exec_cmd("~/.config/rofi/bin/powermenu.bash"))
 hl.bind(var_mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/rofi/bin/hyprshot.sh"))
 hl.bind(var_mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(
-	var_mainMod .. " + escape",
-	hl.dsp.exec_cmd("hyprshutdown -t 'Exiting Hyprland...' || hyprctl dispatch 'hl.dsp.exit()'")
-)
+hl.bind(var_mainMod .. " + SHIFT + escape",	hl.dsp.exec_cmd("hyprshutdown -t 'Exiting Hyprland...' || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(var_mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(var_mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
 hl.bind(var_mainMod .. " + E", hl.dsp.exec_cmd("dolphin --new-window"))

@@ -1,15 +1,8 @@
 #!/bin/sh
 # Waybar battery + power profile module
 
-# --- Find battery directory ---
-bdir=""
-for d in /sys/class/power_supply/*; do
-	[ -f "$d/type" ] || continue
-	case "$(cat "$d/type")" in
-		Battery|battery) bdir="$d"; break ;;
-	esac
-done
-[ -z "$bdir" ] && bdir="/sys/class/power_supply/BAT0"
+# --- Battery directory ---
+bdir="/sys/class/power_supply/BAT0"
 
 # --- Read basic battery info ---
 capacity=$(cat "$bdir/capacity" 2>/dev/null); capacity=${capacity:-"?"}
