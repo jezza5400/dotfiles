@@ -9,7 +9,7 @@
     "hyprland/workspaces"
   ],
   "modules-center": [
-    "custom/clock"
+    "clock"
   ],
   "modules-right": [
     "group/tray-expander",
@@ -47,9 +47,9 @@
       "5": []
     }
   },
-  "custom/clock": {
-    "exec": "date '+%A %-d/%-m/%-y %-I:%M %p'",
-    "interval": 60,
+  "clock": {
+    "format": "{:%A %d/%m/%y %I:%M:%S %p}",
+    "interval": 1,
     "tooltip": false
   },
   "group/tray-expander": {
@@ -120,8 +120,7 @@
     "exec": "/home/jeremy/.config/waybar/bin/battery-powerprofile.sh",
     "interval": 10,
     "return-type": "json",
-    "signal": 7,
-    "on-click": "/home/jeremy/.config/waybar/bin/power-profile-cycle.sh"
+    "signal": 7
   },
   "custom/notifications": {
     "exec": "swaync-client -swb",

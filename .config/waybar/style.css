@@ -18,7 +18,7 @@ window#waybar {
 
 #pulseaudio,
 #cpu,
-#custom-clock {
+#clock {
   font-feature-settings: "tnum";
 }
 
@@ -76,10 +76,6 @@ window#waybar {
 
 #custom-notifications {
   color: #f38ba8;
-}
-
-#custom-clock {
-  color: #cdd6f4;
 }
 
 menu,

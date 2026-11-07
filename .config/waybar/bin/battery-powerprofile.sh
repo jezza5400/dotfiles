@@ -1,5 +1,5 @@
 #!/bin/sh
-# Waybar battery + power profile module
+# Waybar battery module
 
 # --- Battery directory ---
 bdir="/sys/class/power_supply/BAT0"
@@ -84,17 +84,6 @@ if [ "$status" = "Discharging" ] && [ "$capacity" != "?" ]; then
 	fi
 fi
 
-# --- Power profile ---
-profile=$(powerprofilesctl get 2>/dev/null)
-profile=${profile:-balanced}
-
-# --- Waybar icons (Nerd Font) ---
-case "$profile" in
-	performance)                         icon="󰂄" ;;
-	power-saver*|powersave*|power_saver) icon="󱈑" ;;
-	*)                                   icon="󰁹" ;;
-esac
-
 plug_icon=""
 [ "$plugged" -eq 1 ] && plug_icon=" "
 
@@ -107,13 +96,11 @@ json_escape() {
 }
 
 # --- Build output ---
-tooltip="Profile: ${profile}
-Status: ${status}"
+tooltip="Status: ${status}"
 [ -n "$time_remaining" ] && tooltip="${tooltip}
 Time: ${time_remaining}"
 
-text="${plug_icon}${icon} ${capacity}%"
-printf '{"text":"%s","alt":"%s","tooltip":"%s"}\n' \
+text="${plug_icon}󰁹 ${capacity}%"
+printf '{"text":"%s","tooltip":"%s"}\n' \
 	"$(json_escape "$text")" \
-	"$(json_escape "$icon")" \
 	"$(json_escape "$tooltip")"
